@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: newgateway
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: user-services
+              uri: https://userservices-1.onrender.com
+              predicates:
+                - Path=/users/**
+            - id: order-services
+              uri: https://ordersservices.onrender.com
+              predicates:
+                - Path=/orders/**
+
+
+
