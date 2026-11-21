@@ -10,12 +10,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.WebFilter;
+import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
 
 @Component
-public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
+public class JwtAuthenticationFilter implements WebFilter, Ordered {
 
     @Autowired
     private JwtUtil util;
@@ -26,7 +28,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
     private final List<String> openPaths = List.of("/api/v1/api/login", "/api/v1/api/register");
 
     @Override
-    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         String path = exchange.getRequest().getURI().getPath();
         if (path.startsWith("/users/login") || path.startsWith("/users/register")) {
             return chain.filter(exchange);
