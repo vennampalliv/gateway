@@ -1,6 +1,13 @@
 spring:
   application:
     name: newgateway
+  r2dbc:
+    url: r2dbc:postgresql://postgres_user_database_user:bsBcIadpC4bMHSBlX160DO7pY6gzmcXH@dpg-dc0ti9om7kps73eio03g-a.virginia-postgres.render.com/postgres_user_database
+    username: postgres_user_database_user
+    password: bsBcIadpC4bMHSBlX160DO7pY6gzmcXH
+  sql:
+    init:
+     mode: always
   cloud:
     gateway:
       server:
@@ -14,6 +21,5 @@ spring:
               uri: https://ordersservices.onrender.com
               predicates:
                 - Path=/orders/**
-
 
 
